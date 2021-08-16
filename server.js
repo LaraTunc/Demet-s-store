@@ -41,6 +41,11 @@ app.prepare().then(() => {
 		createShopifyAuth({
 			afterAuth(ctx) {
 				const { shop, acessToken } = ctx.session;
+				ctx.cookies.set('shopOrigin', shop, {
+					httpOnly: false,
+					secure: true,
+					sameSite: 'none',
+				});
 
 				ctx.redirect('/');
 			},
